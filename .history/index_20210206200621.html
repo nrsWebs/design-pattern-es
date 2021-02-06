@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="source/main.css">
+<link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'>
+</head>
+<body>
+    <div class="main-content">
+        <div id="general" class="box">
+            <div class="glass"></div>
+            <h1>Patrones de disseño</h1>
+            <div class="information">
+                <h2>Lorem ipsum dolor</h2>
+                <p class="text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                <div class="action-container">
+                    <div class="button linker" data-link="cat-1">
+                        <div class="text">CAT-1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="cat-1" class="box no-opacity hidden-container">
+            <div class="glass"></div>
+            <h1>Patrones de disseño test</h1>
+            <div class="information">
+                <h2>Lorem ipsum dolor</h2>
+                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                <div class="action-container">    
+                    <div class="button linker" data-link="general">
+                        <div class="text">HOME</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<footer>
+    <a class="hidden-container" href="https://www.freepik.es/vectores/fondo">Vector de Fondo creado por coolvector - www.freepik.es</a>
+</footer>
+<script>
+    jQuery('.linker').on('click', function() {
+        var nextid = jQuery(this).data('link');
+        //hide
+        jQuery(this).closest('.box').animate({opacity: '0'}, 200, function() {
+            jQuery(this).closest('.box').addClass('hidden-container');
+        });
+        //Show
+        jQuery('#'+nextid).removeClass('hidden-container');
+        jQuery('#'+nextid).animate({opacity: '0.5'}, 200);
+        jQuery('#'+nextid).animate({opacity: '1'}, 200);
+    });
+</script>
+</html>

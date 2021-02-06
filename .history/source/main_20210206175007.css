@@ -1,0 +1,11 @@
+:root {
+    --main: #FAFAFA;
+    --secondary: #E3F2FD;
+    --auxiliar: #DB5461
+  }
+body {
+    background-color: var(--primary);
+    display: flex;
+    width: 100%;
+    
+}

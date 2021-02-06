@@ -1,0 +1,54 @@
+:root {
+    --main: #141115;
+    --secondary:  #E94F37;
+    --auxiliar: #B5FFE9;
+  }
+body {
+    background-color: var(--main);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    color: var(--auxiliar)
+}
+.main-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1440px;
+    background-image: (source/images);
+}
+h1{
+    text-align: center;
+    color: var(--secondary)
+}
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+/* GLASS EFFECT */
+.glass{
+    background: inherit;
+    width: 100%;
+    height: 100%;
+}
+.glass:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: inherit; 
+    position: absolute;
+    left: 0;  
+    right: 0;
+    top: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 0 200px rgba(255,255,255,0.3);
+    filter: blur(90px);
+    border-radius: 5px;
+}

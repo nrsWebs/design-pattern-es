@@ -1,0 +1,7 @@
+:root {
+    --main: #fafafa;
+    --secondary: #ffffff;
+  }
+body {
+    background-color: #fafafa;
+}
