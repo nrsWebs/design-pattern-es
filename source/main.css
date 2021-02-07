@@ -1,7 +1,7 @@
 :root {
     --main: #000;
     --secondary:  #E94F37;
-    /* --auxiliar: #002F3D; */
+    --home: #002F3D;
     --auxiliar: #F9C80E;
     --button: #F9C80E;
 }
@@ -42,6 +42,8 @@ h2{
 .text{
     letter-spacing: 0.5px;
     font-size: 20px;
+    color: #fff;
+    text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
 }
 .box {
     display: flex;
@@ -63,7 +65,7 @@ h2{
 .action-container{
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 .action-container .button {
     box-sizing: border-box;
@@ -74,11 +76,15 @@ h2{
     position: relative;
     cursor: pointer;
 }
+.action-container .button.home{
+    border: 2px dotted var(--home);
+}
 .action-container .button .text{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
 }
 footer{
     display: block;
