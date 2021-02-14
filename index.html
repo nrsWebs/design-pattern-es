@@ -177,6 +177,135 @@
                 </div>
             </div>
         </div>
+        <div id="abstract" class="box  hidden-container">
+            <div class="glass"></div>
+            <h1>Abstract Factory</h1>
+            <div class="information">
+                <h2>Descripción</h2>
+                <p class="text">Es un patrón de diseño creacional que nos permite producir familias de objetos relacionados sin especificar sus clases concretas.</p>
+                <p class="text">Utiliza el patrón Abstract Factory cuando tu código deba funcionar con varias familias de productos relacionados, pero no desees que dependa de las clases concretas de esos productos, ya que puede ser que no los conozcas de antemano o sencillamente quieras permitir una futura extensibilidad.</p>
+                <h2>Implementación</h2>
+                <p class="text">1. Mapea una matriz de distintos tipos de productos frente a variantes de dichos productos.</p>
+                <p class="text">2. Declara interfaces abstractas de producto para todos los tipos de productos. Después haz que todas las clases concretas de productos implementen esas interfaces.</p>
+                <p class="text">3. Declara la interfaz de la fábrica abstracta con un grupo de métodos de creación para todos los productos abstractos.</p>
+                <p class="text">4. Implementa un grupo de clases concretas de fábrica, una por cada variante de producto.</p>
+                <p class="text">5. Crea un código de inicialización de la fábrica en algún punto de la aplicación. Deberá instanciar una de las clases concretas de la fábrica, dependiendo de la configuración de la aplicación o del entorno actual. Pasa este objeto de fábrica a todas las clases que construyen productos.</p>
+                <p class="text">6. Explora el código y encuentra todas las llamadas directas a constructores de producto. Sustitúyelas por llamadas al método de creación adecuado dentro del objeto de fábrica.</p>
+                <pre><code class="language-php hljs php">
+                    interface AbstractFactory
+                    {
+                        public function createProductA(): AbstractProductA;
+
+                        public function createProductB(): AbstractProductB;
+                    }
+
+                    class ConcreteFactory1 implements AbstractFactory
+                    {
+                        public function createProductA(): AbstractProductA
+                        {
+                            return new ConcreteProductA1();
+                        }
+
+                        public function createProductB(): AbstractProductB
+                        {
+                            return new ConcreteProductB1();
+                        }
+                    }
+
+                    class ConcreteFactory2 implements AbstractFactory
+                    {
+                        public function createProductA(): AbstractProductA
+                        {
+                            return new ConcreteProductA2();
+                        }
+
+                        public function createProductB(): AbstractProductB
+                        {
+                            return new ConcreteProductB2();
+                        }
+                    }
+
+                    interface AbstractProductA
+                    {
+                        public function usefulFunctionA(): string;
+                    }
+
+                    class ConcreteProductA1 implements AbstractProductA
+                    {
+                        public function usefulFunctionA(): string
+                        {
+                            return "The result of the product A1.";
+                        }
+                    }
+
+                    class ConcreteProductA2 implements AbstractProductA
+                    {
+                        public function usefulFunctionA(): string
+                        {
+                            return "The result of the product A2.";
+                        }
+                    }
+
+                    interface AbstractProductB
+                    {
+                        public function usefulFunctionB(): string;
+                        public function anotherUsefulFunctionB(AbstractProductA $collaborator): string;
+                    }
+
+                    class ConcreteProductB1 implements AbstractProductB
+                    {
+                        public function usefulFunctionB(): string
+                        {
+                            return "The result of the product B1.";
+                        }
+                        public function anotherUsefulFunctionB(AbstractProductA $collaborator): string
+                        {
+                            $result = $collaborator->usefulFunctionA();
+
+                            return "The result of the B1 collaborating with the ({$result})";
+                        }
+                    }
+
+                    class ConcreteProductB2 implements AbstractProductB
+                    {
+                        public function usefulFunctionB(): string
+                        {
+                            return "The result of the product B2.";
+                        }
+                        public function anotherUsefulFunctionB(AbstractProductA $collaborator): string
+                        {
+                            $result = $collaborator->usefulFunctionA();
+
+                            return "The result of the B2 collaborating with the ({$result})";
+                        }
+                    }
+                    function clientCode(AbstractFactory $factory)
+                    {
+                        $productA = $factory->createProductA();
+                        $productB = $factory->createProductB();
+
+                        echo $productB->usefulFunctionB() . "\n";
+                        echo $productB->anotherUsefulFunctionB($productA) . "\n";
+                    }
+
+                    echo "Client: Testing client code with the first factory type:\n";
+                    clientCode(new ConcreteFactory1());
+
+                    echo "\n";
+
+                    echo "Client: Testing the same client code with the second factory type:\n";
+                    clientCode(new ConcreteFactory2());
+                </code></pre>
+                <div class="action-container">    
+                    <div class="button linker" data-link="creacionales">
+                        <div class="text">Creacionales</div>
+                    </div>
+                    <div class="button linker home" data-link="general">
+                        <div class="text">Inicio</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- PATRONES ESTRUCTURALES -->
         <div id="estructurales" class="box  hidden-container">
             <div class="glass"></div>
