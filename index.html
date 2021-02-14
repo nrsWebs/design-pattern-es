@@ -5,18 +5,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="source/main.css">
     <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'>
+    <link rel="stylesheet" href="source/highlights/styles/stackoverflow-light.css">
+    <script src="./source/highlights/highlight.pack.js"></script>
 </head>
 <body>
+    <script>hljs.initHighlightingOnLoad();</script>
     <div class="main-content">
         <div id="general" class="box">
             <div class="glass"></div>
-            <h1>Patrones de disseño</h1>
+            <h1>Patrones de diseño</h1>
             <div class="information">
-                <h2>¿Que són?</h2>
+                <h2>¿Qué son?</h2>
                 <p class="text">Los patrones de diseño son "plantillas" creadas para solucionar problemas recurrentes de diseño de software.</p>
                 <h2>Clasificación</h2>
                 <p class="text"><strong>Patrones creacionales:</strong> nos dan un mecanismo de creación de objetos</p>
-                <p class="text"><strong>Patrones estructurales:</strong> proporcionan mecanismo para conjuntar objetos en estructuras mas grandes</p>
+                <p class="text"><strong>Patrones estructurales:</strong> proporcionan mecanismo para conjuntar objetos en estructuras más grandes</p>
                 <p class="text"><strong>Patrones de comportamiento:</strong> encargados de la comunicación y asignación de responsabilidades entre objetos</p>
                 <div class="action-container">
                     <div class="button linker" data-link="creacionales">
@@ -32,18 +35,13 @@
             </div>
         </div>
         <!-- PATRONES CREACIONALES -->
-        <div id="creacionales" class="box no-opacity hidden-container">
+        <div id="creacionales" class="box  hidden-container">
             <div class="glass"></div>
             <h1>Patrones creacionales</h1>
             <div class="information">
                 <h2>Descripción</h2>
-                <p class="text">Són patrones que nos proporcionan mecanismos de creación de objetos</p>
+                <p class="text">Son patrones que nos proporcionan mecanismos de creación de objetos</p>
                 <h2>Tipos</h2>
-                <p class="text">Factory method</p>
-                <p class="text">Abstract Factory</p>
-                <p class="text">Builder</p>
-                <p class="text">Prototype</p>
-                <p class="text">Singleton</p>
                 <div class="action-container">    
                     <div class="button linker" data-link="factory">
                         <div class="text">Factory Method</div>
@@ -66,21 +64,127 @@
                 </div>
             </div>
         </div>
+        <div id="factory" class="box  hidden-container">
+            <div class="glass"></div>
+            <h1>Factory Method</h1>
+            <div class="information">
+                <h2>Descripción</h2>
+                <p class="text">Patrón creacional que provee de una interficie para crear objetos en una superclase, habilitando la posibilidad a las subclases de alterar el tipo de los objetos creados</p>
+                <p class="text">Partimos de la base que tenemos varios objetos que realizan una lógica similar</p>
+                <p class="text">Por lo tanto tendríamos un objeto por cada objeto (llamados <strong>productos</strong>)</p>
+                <p class="text">Si no utilizamos ningún diseño en la parte del código donde generamos la lógica (llamado <strong> cliente</strong>)deberíamos pasar todos los <strong>objetos productos</strong></p>
+                <pre><code class="language-php hljs php">
+                    // Productos
+                    class A
+                    {
+                        public funtion doSomething(){
+                            //do something
+                        }
+                    }
+                    
+                    class B
+                    {
+                        public funtion doSomething(){
+                            //do something
+                        }
+                    }
+                    // Cliente
+                    function doStuffA(A $a) {
+                        $a->someOperation();
+                    }
+                    
+                    function doStuffB(B $b) {
+                        $b->someOperation();
+                    }
+                    
+                    if('A'){
+                        doStuffA(new A());
+                    }
+                    if('A'){
+                        doStuffB(new B());
+                    }
+                </code></pre>
+                <p class="text">La propuesta de este patrón es utilizar una clase creadora <strong>factory</strong> común para todos los <strong>productos</strong></p>
+                <p class="text">No obstante, hay una pequeña limitación: las subclases solo pueden devolver productos de distintos tipos si dichos productos tienen una clase base o interfaz común</p>
+                <pre><code class="language-php hljs php">
+                    // Productos
+                    interface Product
+                    {
+                        public function doSomething();
+                    }
+                    class A implements Product
+                    {
+                        public funtion doSomething(){
+                            //do something
+                        }
+                    }
+
+                    class B implements Product
+                    {
+                        public funtion doSomething(){
+                            //do something
+                        }
+                    }
+                    // Factory
+                    abstract class Creator
+                    {
+                        abstract public function factoryMethod(): Product;
+
+                        public function someOperation()
+                        {
+                            $product = $this->factoryMethod();
+                            $product->doSomething();
+                            return $result;
+                        }
+                    }
+
+                    class ACreator extends Creator
+                    {
+                        public function factoryMethod(): Product
+                        {
+                            return new ACreator();
+                        }
+                    }
+
+                    class BCreator extends Creator
+                    {
+                        public function factoryMethod(): Product
+                        {
+                            return new BCreator();
+                        }
+                    }
+
+
+                    //Cliente
+                    function doStuff(Creator $creator) {
+                        $creator->someOperation();
+                    }
+
+                    if('A'){
+                        doStuff(new ACreator());
+                    }
+                    if('A'){
+                        doStuff(new BCreator());
+                    }
+                </code></pre>
+                <div class="action-container">    
+                    <div class="button linker" data-link="creacionales">
+                        <div class="text">Patrones creacionales</div>
+                    </div>
+                    <div class="button linker home" data-link="general">
+                        <div class="text">Inicio</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- PATRONES ESTRUCTURALES -->
-        <div id="estructurales" class="box no-opacity hidden-container">
+        <div id="estructurales" class="box  hidden-container">
             <div class="glass"></div>
             <h1>Patrones estructurales</h1>
             <div class="information">
                 <h2>Descripción</h2>
-                <p class="text">Són patrones que nos proporcionan mecanismo para conjuntar objetos en estructuras mas grandes</p>
+                <p class="text">Son patrones que nos proporcionan mecanismo para conjuntar objetos en estructuras más grandes</p>
                 <h2>Tipos</h2>
-                <p class="text">Adapter</p>
-                <p class="text">Bridge</p>
-                <p class="text">Composite</p>
-                <p class="text">Decorator</p>
-                <p class="text">Facade</p>
-                <p class="text">Flyweight</p>
-                <p class="text">Proxy</p>
                 <div class="action-container">    
                     <div class="button linker" data-link="adapter">
                         <div class="text">Adpater</div>
@@ -110,23 +214,13 @@
             </div>
         </div>
         <!-- PATRONES DE COMPORTAMIENTO -->
-        <div id="comportamiento" class="box no-opacity hidden-container">
+        <div id="comportamiento" class="box  hidden-container">
             <div class="glass"></div>
             <h1>Patrones de comportamiento</h1>
             <div class="information">
                 <h2>Descripción</h2>
-                <p class="text">Són patrones encargados de la comunicación y asignación de responsabilidades entre objetos</p>
+                <p class="text">Son patrones encargados de la comunicación y asignación de responsabilidades entre objetos</p>
                 <h2>Tipos</h2>
-                <p class="text">Chain of responsability</p>
-                <p class="text">Commmand</p>
-                <p class="text">Iterator</p>
-                <p class="text">Mediator</p>
-                <p class="text">Memento</p>
-                <p class="text">Observer</p>
-                <p class="text">State</p>
-                <p class="text">Strategy</p>
-                <p class="text">Template method</p>
-                <p class="text">Visitor</p>
                 <div class="action-container">    
                     <div class="button linker" data-link="chain">
                         <div class="text">Chain of responsability</div>
@@ -183,13 +277,9 @@
     jQuery('.linker').on('click', function() {
         var nextid = jQuery(this).data('link');
         //hide
-        jQuery(this).closest('.box').animate({opacity: '0'}, 200, function() {
-            jQuery(this).closest('.box').addClass('hidden-container');
-        });
+        jQuery(this).closest('.box').addClass('hidden-container');
         //Show
         jQuery('#'+nextid).removeClass('hidden-container');
-        jQuery('#'+nextid).animate({opacity: '0.5'}, 200);
-        jQuery('#'+nextid).animate({opacity: '1'}, 200);
     });
 </script>
 </html>
